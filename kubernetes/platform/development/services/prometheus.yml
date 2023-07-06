@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: prometheus-config
+    namespace: polar
+    labels:
+        app: polar-prometheus
+data:
+    prometheus.yml: |
+        global:
+            scrape_interval: 2s
+
+        scrape_configs:
+            - job_name: 'edge-service'
+              scrape_interval: 2s
+              metrics_path: '/actuator/prometheus'
+              static_configs:
+                  - targets: [ 'edge-service' ]
+            - job_name: 'catalog-service'
+              scrape_interval: 2s
+              metrics_path: '/actuator/prometheus'
+              static_configs:
+                  - targets: [ 'catalog-service' ]
+            - job_name: 'order-service'
+              scrape_interval: 2s
+              metrics_path: '/actuator/prometheus'
+              static_configs:
+                  - targets: [ 'order-service' ]
+            - job_name: 'dispatcher-service'
+              scrape_interval: 2s
+              metrics_path: '/actuator/prometheus'
+              static_configs:
+                  - targets: [ 'dispatcher-service' ]
+            - job_name: 'config-service'
+              scrape_interval: 2s
+              metrics_path: '/actuator/prometheus'
+              static_configs:
+                  - targets: [ 'config-service' ]
+        
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: polar-prometheus
+    namespace: polar
+    labels:
+        app: polar-prometheus
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: polar-prometheus
+    template:
+        metadata:
+            name: polar-prometheus
+            labels:
+                app: polar-prometheus
+        spec:
+            containers:
+                -   name: polar-prometheus
+                    image: prom/prometheus:v2.38.0
+                    imagePullPolicy: IfNotPresent
+                    volumeMounts:
+                        -   mountPath: /etc/prometheus
+                            name: prometheus-config-volume
+            volumes:
+                -   name: prometheus-config-volume
+                    configMap:
+                        name: prometheus-config
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+    name: polar-prometheus
+    namespace: polar
+    labels:
+        app: polar-prometheus
+spec:
+    type: ClusterIP
+    selector:
+        app: polar-prometheus
+    ports:
+        -   port: 9090
+            targetPort: 9090
+            protocol: TCP

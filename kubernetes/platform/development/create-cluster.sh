@@ -103,4 +103,23 @@ kubectl wait \
   --selector=app=polar-ui \
   --timeout=180s
 
+echo "\n📦 Deploying Polar Prometheus..."
+
+kubectl apply -f services/prometheus.yml
+
+sleep 5
+
+echo "\n⌛ Waiting for Polar Prometheus to be deployed..."
+
+while [ $(kubectl get pod -l app=polar-prometheus | wc -l) -eq 0 ] ; do
+  sleep 5
+done
+
+echo "\n⌛ Waiting for Polar Prometheus to be ready..."
+
+kubectl wait \
+  --for=condition=ready pod \
+  --selector=app=polar-prometheus \
+  --timeout=180s
+
 echo "\n⛵ Happy Sailing!\n"
