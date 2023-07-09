@@ -1,0 +1,17 @@
+polar:
+    greeting: Welcome to the book catalog from a staging Kubernetes environment!
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: refresh, health, prometheus
+    endpoint:
+        health:
+            show-details: always
+            show-components: always
+            probes:
+                enabled: true
+    metrics:
+        tags:
+            application: catalog-service

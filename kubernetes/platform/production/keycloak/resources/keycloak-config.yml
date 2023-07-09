@@ -1,7 +1,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: polar-keycloak
+  name: keycloak-config
+  namespace: keycloak-system
 data:
   realm-config.json: |
     {
@@ -32,7 +33,7 @@ data:
       "oauth2DeviceCodeLifespan": 600,
       "oauth2DevicePollingInterval": 5,
       "enabled": true,
-      "sslRequired": "external",
+      "sslRequired": "none",
       "registrationAllowed": false,
       "registrationEmailAsUsername": false,
       "rememberMe": false,
@@ -493,12 +494,12 @@ data:
           {
               "id": "8e86facd-b2fe-4936-8d53-fff3dcaee683",
               "createdTimestamp": 1654540912940,
-              "username": "viraj",
+              "username": "isabelle",
               "enabled": true,
               "totp": false,
               "emailVerified": false,
-              "firstName": "Viraj",
-              "lastName": "Bukitagar",
+              "firstName": "Isabelle",
+              "lastName": "Dahl",
               "credentials": [
                   {
                       "id": "7197b022-b1a6-42c3-ae59-29523f8060aa",

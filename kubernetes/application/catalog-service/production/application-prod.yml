@@ -1,0 +1,21 @@
+polar:
+    greeting: Welcome to our book catalog from a production Kubernetes environment!
+spring:
+    config:
+        import: configtree:/workspace/secrets/*/
+
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: refresh, health, prometheus
+    endpoint:
+        health:
+            show-details: always
+            show-components: always
+            probes:
+                enabled: true
+    metrics:
+        tags:
+            application: catalog-service
