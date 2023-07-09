@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- github.com/cloud-native-spring-project/catalog-service/k8s?ref=2a15ac37e68780eca5ff6ee12c68b0d9915fc345
+- github.com/cloud-native-spring-project/catalog-service/k8s?ref=644aea8c670abc0c40fcd2d010d63ada7f937332
 
 patches:
 - path: patch-env.yml
@@ -18,7 +18,7 @@ configMapGenerator:
 images:
 - name: catalog-service
   newName: ghcr.io/cloud-native-spring-project/catalog-service
-  newTag: 1cc99cea697b14a3a95c9fac525f0ccd0b241161
+  newTag: 644aea8c670abc0c40fcd2d010d63ada7f937332
 
 replicas:
 - count: 2
