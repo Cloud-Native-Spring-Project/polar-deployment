@@ -2,24 +2,24 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - github.com/cloud-native-spring-project/order-service/k8s?ref=main
+- github.com/cloud-native-spring-project/order-service/k8s?ref=12efb3ed2a61223ecc46bf5896ff055335975698
 
 patchesStrategicMerge:
-  - patch-env.yml
-  - patch-resources.yml
-  - patch-volumes.yml
+- patch-env.yml
+- patch-resources.yml
+- patch-volumes.yml
 
 configMapGenerator:
-  - behavior: merge
-    files:
-      - application-prod.yml
-    name: order-config
+- behavior: merge
+  files:
+  - application-prod.yml
+  name: order-config
 
 images:
-  - name: order-service
-    newName: ghcr.io/cloud-native-spring-project/order-service
-    newTag: latest
+- name: order-service
+  newName: ghcr.io/cloud-native-spring-project/order-service
+  newTag: 12efb3ed2a61223ecc46bf5896ff055335975698
 
 replicas:
-  - count: 1
-    name: order-service
+- count: 1
+  name: order-service
