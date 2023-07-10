@@ -1,3 +1,22 @@
 spring:
   config:
     import: configtree:/workspace/secrets/*/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, prometheus
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+      probes:
+        enabled: true
+  metrics:
+    tags:
+      application: order-service
+
+logging:
+  level:
+    root: debug
