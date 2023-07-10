@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- github.com/cloud-native-spring-project/dispatcher-service/k8s?ref=606936e840104851db5a3812a14e3894a61dfc89
+- github.com/cloud-native-spring-project/dispatcher-service/k8s?ref=a59952eb57780fd192dde1116d927c84966e487d
 
 patchesStrategicMerge:
 - patch-env.yml
@@ -18,7 +18,7 @@ configMapGenerator:
 images:
 - name: dispatcher-service
   newName: ghcr.io/cloud-native-spring-project/dispatcher-service
-  newTag: 606936e840104851db5a3812a14e3894a61dfc89
+  newTag: a59952eb57780fd192dde1116d927c84966e487d
 
 replicas:
 - count: 1
